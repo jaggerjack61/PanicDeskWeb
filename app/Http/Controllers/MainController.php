@@ -28,7 +28,7 @@ class MainController extends Controller
             'email'=>$request->email,
             'password'=>$request->password
         ]);
-        return redirect()->route('dashboard');
+        return redirect()->route('patients');
     }
 
     public function login(Request $request){
@@ -36,7 +36,7 @@ class MainController extends Controller
             'email'=>$request->email,
             'password'=>$request->password
         ]);
-        return redirect()->route('dashboard');
+        return redirect()->route('patients');
     }
 
     public function logout(){

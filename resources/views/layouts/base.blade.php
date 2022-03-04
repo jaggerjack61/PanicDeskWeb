@@ -15,6 +15,7 @@
 </head>
 
 <body>
+@yield('modals')
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <!-- Container wrapper -->
     <div class="container-fluid">
@@ -41,7 +42,7 @@
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                 @auth
                 <li class="nav-item">
-                    <a class="nav-link" href="{{route('dashboard')}}">Dashboard</a>
+                    <a class="nav-link" href="{{route('patients')}}">Patients</a>
                 </li>
                 @endauth
 

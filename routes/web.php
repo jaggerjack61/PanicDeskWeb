@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\PatientsController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\MainController;
 
@@ -19,6 +20,7 @@ Route::post('/login',[MainController::class,'login'])->name('login-user');
 Route::get('/register',[MainController::class,'showRegister'])->name('register')->middleware('guest');
 Route::post('/register',[MainController::class,'register'])->name('register-new-user');
 Route::get('/dashboard',[MainController::class,'showDashboard'])->name('dashboard')->middleware('auth');
+Route::get('/patients',[PatientsController::class,'index'])->name('patients')->middleware('auth');
 Route::get('/logout',[MainController::class,'logout'])->name('logout')->middleware('auth');
 
 
