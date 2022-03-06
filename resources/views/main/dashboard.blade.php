@@ -1,7 +1,53 @@
 @extends('layouts.base')
 
+@section('modals')
+    <div class="modal fade" id="addWellnessDataModal">
+        <form role="form" action="{{route('store-wellness')}}" method="POST">
+            @csrf
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="z-depth-right-5 m-b-25">
+                        <p class="f-16 color-default bg-primary p-2 m-0" >Add Wellness Data
+                        </p>
+                    </div>
+
+                    <div class="modal-body">
+                        <div class="card-body">
+                            <input type="hidden" value="{{$patient->id}}" name="patient_id">
+                            <div class="form-group">
+                                <label for="title">Anxiety on Scale of 1 to 10</label>
+                                <input type="number" class="form-control" min="1" max="10"name="anxiety" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="title">Well being on Scale of 1 to 10</label>
+                                <input type="number" class="form-control" min="1" max="10"name="well_being" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="title">Stress on Scale of 1 to 10</label>
+                                <input type="number" class="form-control" min="1" max="10"name="stress" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="title">Agitation on Scale of 1 to 10</label>
+                                <input type="number" class="form-control" min="1" max="10"name="agitation" required>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="modal-footer justify-content-between">
+                        <button type="button" class="btn btn-default" data-bs-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Save changes</button>
+                    </div>
+
+                </div>
+                <!-- /.modal-content -->
+            </div>
+        </form>
+        <!-- /.modal-dialog -->
+    </div>
+@endsection
+
 @section('cssHere')
-    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript" src="/js/loader.js"></script>
 
 
     <script type="text/javascript">
@@ -20,6 +66,8 @@
             ]);
 
             var options = {
+                'height':500,
+                'width':500,
                 title: 'Patients Daily Activities'
             };
 
@@ -38,21 +86,26 @@
         google.charts.load('current', {'packages':['corechart']});
         google.charts.setOnLoadCallback(drawChart);
 
+        @if($wrecords->first())
         function drawChart() {
             var data = google.visualization.arrayToDataTable([
-                ['Month', 'False Alets', 'Actual Panic Attacks'],
-                ['Jan',  10,      4],
-                ['Feb',  1,      6],
-                ['Mar',  6,       10],
-                ['Apr',  10,      4],
-                ['May',  10,      4],
-                ['Jun',  6,       12],
-                ['Jul',  10,      5]
+                ['Day', 'Anxiety', 'Well Being','Stress','Agitation'],
+            @foreach($wrecords as $wrecord)
+
+                ['{{substr($wrecord->created_at,5,-9)}}',{{$wrecord->anxiety}},{{$wrecord->well_being}},{{$wrecord->stress}},{{$wrecord->agitation}}],
+                {{--['Feb{{rand(1, 30)}}',  1,      6,5,7],--}}
+                {{--['Feb{{rand(1, 30)}}',  1,      6,5,7],--}}
+
+
+            @endforeach
+
             ]);
 
             var options = {
-                title: 'Panic Attack Frequency',
+                title: 'Wellness Chart',
                 curveType: 'function',
+                'width':1000,
+                'height':300,
                 legend: { position: 'bottom' }
             };
 
@@ -60,6 +113,10 @@
 
             chart.draw(data, options);
         }
+        @else
+
+        @endif
+
     </script>
 
 @endsection
@@ -67,72 +124,91 @@
 @section('content')
     <div class="container-fluid">
         <div class="row">
-            <div class="col-md-3" >
+            <div class="col-md-4" >
 
                 <!-- Profile Image -->
 
                 <div class="z-depth-right-5 m-b-25 p-5" >
-                    <p class="f-16 color-default bg-primary p-2 m-0" >Patient name</p>
+                    <p class="f-16 color-default bg-primary p-2 m-0" >{{$patient->name}}</p>
                     <div class="p-2 outline-primary bg-light">
-                        <p>Patient Sex</p>
-                        <p>Patient Age</p>
-                        <p>Other Data</p>
+                        <p>{{$patient->sex}}</p>
+                        <p>{{$patient->dob}}</p>
+                        <p>{{$patient->id_no}}</p>
                     </div>
                 </div>
+
+                    <div class="z-depth-right-5 m-b-25 p-5" >
+                        <p class="f-16 color-default bg-primary p-2 m-0" >Action Tab</p>
+                        <div class="p-2 outline-primary bg-light">
+
+                            <button type="button" class="btn btn-success btn-sm" data-bs-toggle="modal" data-bs-target="#addWellnessDataModal">Add Wellness Data</button>
+                            <button type="button" class="btn btn-success btn-sm">Add Panic Attack</button>
+                            <button type="button" class="btn btn-primary btn-sm">Print Data</button>
+
+                        </div>
+                    </div>
             </div>
-            <div class="col-md-5">
+            <div class="col-md-8">
                 <div class="z-depth-right-5 m-b-25 p-5 outline-primary " >
 
                     <p class="f-16 color-default bg-primary p-2 m-0" >Data Analytics</p>
                     <div class="">
                         <ul class="nav nav-tabs p-5" id="myTab" role="tablist">
                             <li class="nav-item" role="presentation">
-                                <button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#home" type="button" role="tab" aria-controls="home" aria-selected="true">Chart 1</button>
+                                <button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#home" type="button" role="tab" aria-controls="home" aria-selected="true">Daily Wellness</button>
                             </li>
                             <li class="nav-item" role="presentation">
-                                <button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile" type="button" role="tab" aria-controls="profile" aria-selected="false">Chart 2</button>
+                                <button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile" type="button" role="tab" aria-controls="profile" aria-selected="false">Wellness over Time</button>
                             </li>
                             <li class="nav-item" role="presentation">
-                                <button class="nav-link" id="profile-ta1b" data-bs-toggle="tab" data-bs-target="#profile1" type="button" role="tab" aria-controls="profile" aria-selected="false">Chart 3</button>
+                                <button class="nav-link" id="profile-ta1b" data-bs-toggle="tab" data-bs-target="#profile1" type="button" role="tab" aria-controls="profile" aria-selected="false">Panic Attacks</button>
                             </li>
 
                         </ul>
-                        <div class="tab-content" id="myTabContent">
-                            <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab"><ul class="chart">
+                        <div class="tab-content" id="myTabContent" style="height:800px">
+                            <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+                                    @if($wrecordNew)
+                                    <ul class="chart">
                                     <li>
-                                        <span style="height:5%" title="Anxiety"></span>
+                                        <span style="height:{{$wrecordNew->anxiety}}0%" title="Anxiety"></span>
                                     </li>
                                     <li>
-                                        <span style="height:70%" title="Well Being"></span>
+                                        <span style="height:{{$wrecordNew->well_being}}0%" title="Well Being"></span>
                                     </li>
                                     <li>
-                                        <span style="height:50%" title="Stress"></span>
+                                        <span style="height:{{$wrecordNew->stress}}0%" title="Stress"></span>
                                     </li>
                                     <li>
-                                        <span style="height:15%" title="Aggitation"></span>
+                                        <span style="height:{{$wrecordNew->agitation}}0%" title="Agitation"></span>
                                     </li>
                                 </ul>
+                                @else
+                                    <ul class="chart">
+                                        <li>
+                                            <span style="height:0%" title="Anxiety"></span>
+                                        </li>
+                                        <li>
+                                            <span style="height:0%" title="Well Being"></span>
+                                        </li>
+                                        <li>
+                                            <span style="height:0%" title="Stress"></span>
+                                        </li>
+                                        <li>
+                                            <span style="height:0%" title="Agitation"></span>
+                                        </li>
+                                    </ul>
+                                @endif
                             </div>
-                            <div class="tab-pane fade m-x-5" id="profile" role="tabpanel" aria-labelledby="profile-tab"> <div id="curve_chart"></div></div>
+                            <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab"> <div id="curve_chart" style="height:400px"></div></div>
                             <br>
-                            <div class="tab-pane fade m-x-5" id="profile1" role="tabpanel" aria-labelledby="profile-tab1"><div id="piechart"></div>
+                            <div class="tab-pane fade" id="profile1" role="tabpanel" aria-labelledby="profile-tab1"><div id="piechart"></div>
                             </div>
                             <br>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="col-md-4">
-                <div class="z-depth-right-5 m-b-25 p-5" >
-                    <p class="f-16 color-default bg-primary p-2 m-0" >Action Tab</p>
-                    <div class="p-2 outline-primary bg-light">
-                        <button type="button" class="btn btn-primary btn-sm">Print Data</button>
-                        <button type="button" class="btn btn-success btn-sm">Other Action</button>
-                        <button type="button" class="btn btn-success btn-sm">Full Screen</button>
 
-                    </div>
-                </div>
-            </div>
         </div>
     </div>
 @endsection
