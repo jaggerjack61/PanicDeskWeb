@@ -8,4 +8,5 @@ use Illuminate\Database\Eloquent\Model;
 class PanicHistory extends Model
 {
     use HasFactory;
+    public $guarded=[];
 }

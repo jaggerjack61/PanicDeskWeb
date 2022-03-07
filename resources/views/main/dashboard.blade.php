@@ -142,7 +142,10 @@
                         <div class="p-2 outline-primary bg-light">
 
                             <button type="button" class="btn btn-success btn-sm" data-bs-toggle="modal" data-bs-target="#addWellnessDataModal">Add Wellness Data</button>
-                            <button type="button" class="btn btn-success btn-sm">Add Panic Attack</button>
+
+
+                            <a href="{{route('store-panic',$patient->id)}}"  class="btn btn-success btn-sm">Add Panic Attack</a>
+
                             <button type="button" class="btn btn-primary btn-sm">Print Data</button>
 
                         </div>
@@ -201,7 +204,21 @@
                             </div>
                             <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab"> <div id="curve_chart" style="height:400px"></div></div>
                             <br>
-                            <div class="tab-pane fade" id="profile1" role="tabpanel" aria-labelledby="profile-tab1"><div id="piechart"></div>
+                            <div class="tab-pane fade" id="profile1" role="tabpanel" aria-labelledby="profile-tab1">
+                                <table class="table">
+                                    <thead>
+                                    <th>ID</th>
+                                    <th>Time of Panic Attack</th>
+                                    </thead>
+                                    <tbody>
+                                    @foreach($panicAttacks as $panicAttack)
+                                    <tr>
+                                        <td>{{$panicAttack->id}}</td>
+                                        <td>{{$panicAttack->created_at}}</td>
+                                    </tr>
+                                    @endforeach
+                                    </tbody>
+                                </table>
                             </div>
                             <br>
                         </div>
