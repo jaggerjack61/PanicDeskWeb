@@ -146,7 +146,7 @@
 
                             <a href="{{route('store-panic',$patient->id)}}"  class="btn btn-success btn-sm">Add Panic Attack</a>
 
-                            <button type="button" class="btn btn-primary btn-sm">Print Data</button>
+                            <a href="{{route('print',$patient->id)}}" type="button" class="btn btn-primary btn-sm">Print Data</a>
 
                         </div>
                     </div>

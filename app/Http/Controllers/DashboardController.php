@@ -6,6 +6,7 @@ use App\Models\PanicHistory;
 use App\Models\Patient;
 use App\Models\WellnessData;
 use Illuminate\Http\Request;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class DashboardController extends Controller
 {
@@ -41,5 +42,14 @@ class DashboardController extends Controller
         }
 
 
+    }
+
+    public function printPDF(Patient $patient){
+        $wrecords=WellnessData::where('patient_id',$patient->id)->get();
+        $panicAttacks=PanicHistory::where('patient_id',$patient->id)->get();
+        $wrecordNew=WellnessData::where('patient_id',$patient->id)->orderBy('created_at', 'desc')->first();
+        $data=['patient'=>$patient,'wrecords'=>$wrecords,'wrecordNew'=>$wrecordNew,'panicAttacks'=>$panicAttacks];
+        return view('main.printable-dashboard',$data);
+        //return $pdf->download('statiostics.pdf');
     }
 }
