@@ -33,7 +33,7 @@ Route::post('/patients',[PatientsController::class,'store'])->name('store-patien
 //Dashboard Routes
 Route::get('/dashboard/{patient}',[DashboardController::class,'index'])->name('dashboard')->middleware('auth');
 Route::post('/dashboard/add-wellness/',[DashboardController::class,'storeWellnessData'])->name('store-wellness')->middleware('auth');
-Route::get('/dashboard/add-panic-attack/{id}',[DashboardController::class,'storePanicAttack'])->name('store-panic')->middleware('auth');
+
 
 
 
