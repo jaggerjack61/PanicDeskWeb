@@ -63,6 +63,7 @@
                         <th>Patient Name</th>
                         <th>DOB</th>
                         <th>Sex</th>
+                        <th>ID Number</th>
                         <th>Action</th>
                         </thead>
                         <tbody>

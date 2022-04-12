@@ -18,7 +18,7 @@ class CreatePatientsTable extends Migration
             $table->string('name');
             $table->string('dob');
             $table->string('sex');
-            $table->string('id_no');
+            $table->string('id_no')->unique();
 
             $table->timestamps();
         });

@@ -85,10 +85,19 @@
 
     </script>
 
+    <style>
+        @media print{
+            .no-print{
+                display: none;
+            }
+        }
+    </style>
+
+
 </head>
 
 <body>
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
+<nav class="navbar navbar-expand-lg navbar-light bg-light no-print">
     <!-- Container wrapper -->
     <div class="container-fluid">
         <!-- Toggle button -->

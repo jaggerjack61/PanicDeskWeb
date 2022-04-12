@@ -11,12 +11,20 @@
 
     @yield('cssHere')
 
+    <style>
+        @media print{
+            .no-print{
+                display: none;
+            }
+        }
+    </style>
+
 
 </head>
 
 <body>
 @yield('modals')
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
+<nav class="navbar navbar-expand-lg navbar-light bg-light no-print">
     <!-- Container wrapper -->
     <div class="container-fluid">
         <!-- Toggle button -->

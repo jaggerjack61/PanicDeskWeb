@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\MobileApiController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -17,3 +18,8 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+Route::get('/patient/{id}',[MobileApiController::class,'getPatient']);
+Route::post('/patient/panic/',[MobileApiController::class,'postPanicAttack']);
+Route::post('/patient/wb/',[MobileApiController::class,'postWellnessData']);
+

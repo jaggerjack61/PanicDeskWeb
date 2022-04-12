@@ -9,6 +9,7 @@ class PatientsController extends Controller
 {
     public function index()
     {
+
         $patients=Patient::all();
         return view('main.patient-list',['patients'=>$patients]);
     }
