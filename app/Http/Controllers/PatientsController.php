@@ -10,7 +10,7 @@ class PatientsController extends Controller
     public function index()
     {
 
-        $patients=Patient::all();
+        $patients=Patient::paginate(15);
         return view('main.patient-list',['patients'=>$patients]);
     }
     public function store(Request $request)

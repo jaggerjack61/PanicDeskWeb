@@ -13,7 +13,7 @@ class MobileApiController extends Controller
     {
         return $id;
     }
-    public function storePanicAttack(Request $request)
+    public function postPanicAttack(Request $request)
     {
         $panicAttack=new PanicHistory;
         try{
@@ -23,7 +23,7 @@ class MobileApiController extends Controller
         }
         catch(\Exception $e)
         {
-           return($e);
+           return('failed');
         }
 
 
@@ -43,7 +43,7 @@ class MobileApiController extends Controller
         }
         catch(\Exception $e)
         {
-            return($e);
+            return('failed');
         }
     }
 }

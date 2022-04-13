@@ -1,3 +1,8 @@
-GET http://localhost:8000/api/patient/3 HTTP/1.1
+//GET http://localhost:8000/api/patient/3 HTTP/1.1
 
+POST http://localhost:8000/api/patient/panic
+Content-Type: application/json
 
+{
+    "patient_id": 3
+}

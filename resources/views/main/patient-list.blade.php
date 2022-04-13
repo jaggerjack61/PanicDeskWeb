@@ -82,6 +82,7 @@
                         @endempty
                         </tbody>
                     </table>
+                    {{$patients->onEachSide(3)->links()}}
                 </div>
             </div>
 
