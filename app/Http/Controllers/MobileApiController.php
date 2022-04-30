@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\PanicHistory;
 use App\Models\Patient;
+use App\Models\Setting;
+use App\Models\User;
 use App\Models\WellnessData;
 use Illuminate\Http\Request;
 
@@ -44,6 +46,45 @@ class MobileApiController extends Controller
         catch(\Exception $e)
         {
             return('failed');
+        }
+    }
+
+    public function postSettings(Request $request)
+    {
+        try {
+            $settings = Setting::first();
+            if ($settings) {
+                $settings->update([
+                    'url' => $request->url,
+                    'patient_id' => $request->patient_id,
+                    'message' => $request->message,
+                    'phone_no' => $request->phone_no]);
+
+
+            }
+            else {
+                $setting = new Setting();
+                $setting->url = $request->url;
+                $setting->patient_id = $request->patient_id;
+                $setting->message = $request->message;
+                $setting->phone_no = $request->phone_no;
+                $setting->save();
+
+            }
+            return('success');
+        }
+        catch(\Exception $e)
+        {
+            return($e);
+        }
+    }
+
+    public function getDays($patient){
+        try {
+            return (PanicHistory::where('patient_id', $patient)->latest()->first()->created_at->diffForHumans());
+        }
+        catch(\Exception $e){
+            return($e->getMessage());
         }
     }
 }

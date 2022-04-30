@@ -131,9 +131,10 @@
                 <div class="z-depth-right-5 m-b-25 p-5" >
                     <p class="f-16 color-default bg-primary p-2 m-0" >{{$patient->name}}</p>
                     <div class="p-2 outline-primary bg-light">
-                        <p>{{$patient->sex}}</p>
-                        <p>{{$patient->dob}}</p>
-                        <p>{{$patient->id_no}}</p>
+                        <p>Sex:{{$patient->sex}}</p>
+                        <p>DOB:{{$patient->dob}}</p>
+                        <p>ID Number{{$patient->id_no}}</p>
+                        <p>Patied ID:{{$patient->id}}</p>
                     </div>
                 </div>
 
