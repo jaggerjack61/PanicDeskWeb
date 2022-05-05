@@ -47,6 +47,7 @@
 @endsection
 
 @section('cssHere')
+    @livewireStyles
     <script type="text/javascript" src="/js/loader.js"></script>
 
 
@@ -167,6 +168,9 @@
                             <li class="nav-item" role="presentation">
                                 <button class="nav-link" id="profile-ta1b" data-bs-toggle="tab" data-bs-target="#profile1" type="button" role="tab" aria-controls="profile" aria-selected="false">Panic Attacks</button>
                             </li>
+                            <li class="nav-item" role="presentation">
+                                <button class="nav-link" id="profile-ta1b" data-bs-toggle="tab" data-bs-target="#chat" type="button" role="tab" aria-controls="profile" aria-selected="false">Chat</button>
+                            </li>
 
                         </ul>
                         <div class="tab-content" id="myTabContent" style="height:800px">
@@ -222,6 +226,7 @@
                                 </table>
                             </div>
                             <br>
+                            <div class="tab-pane fade" id="chat" role="tabpanel" aria-labelledby="profile-tab"><livewire:chat-log :patient_id="$patient->id"/></div>
                         </div>
                     </div>
                 </div>
@@ -232,6 +237,7 @@
 @endsection
 
 @section('scripts')
+    @livewireScripts
     <style>
         body {
             font: 13px/1.3 'Lucida Grande',sans-serif;
