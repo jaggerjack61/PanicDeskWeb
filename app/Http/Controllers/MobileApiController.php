@@ -14,6 +14,8 @@ class MobileApiController extends Controller
     public function getPatient(Patient $id)
     {
         return $id;
+
+		//return Patient::all();
     }
     public function postPanicAttack(Request $request)
     {

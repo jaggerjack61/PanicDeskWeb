@@ -17,7 +17,8 @@ class ChatController extends Controller
     {
         try {
             $chat = new Chat();
-            $chat = $request;
+            $chat->patient_id = $request->patient_id;
+		 $chat->message = $request->message;
             $chat->save();
 
             $chats=Chat::where('patient_id',$request->patient_id)->get();
@@ -28,6 +29,11 @@ class ChatController extends Controller
             return 'failed';
         }
 
+
+    }
+
+    public function showChat($patient_id){
+        return view('main.no-auth-chat-log',compact('patient_id'));
 
     }
 }

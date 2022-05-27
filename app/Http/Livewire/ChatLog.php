@@ -16,7 +16,7 @@ class ChatLog extends Component
        // dd('here');
         $chat=new Chat();
         $chat->patient_id=$this->patient_id;
-        $chat->doctor_id=Auth::id();
+        $chat->doctor_id=Auth::id()??'x';
         $chat->message=$this->text;
         $chat->save();
     }

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ChatController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\PatientsController;
 use Illuminate\Support\Facades\Route;
@@ -35,6 +36,10 @@ Route::get('/dashboard/{patient}',[DashboardController::class,'index'])->name('d
 Route::get('/dashboard/pdf/{patient}',[DashboardController::class,'printPDF'])->name('print')->middleware('auth');
 Route::post('/dashboard/add-wellness/',[DashboardController::class,'storeWellnessData'])->name('store-wellness')->middleware('auth');
 Route::get('/dashboard/add-panic-attack/{id}',[DashboardController::class,'storePanicAttack'])->name('store-panic')->middleware('auth');
+
+
+//No auth Chat
+Route::get('/no-auth/chat/{patient}',[ChatController::class,'showChat'])->name('show-chat');
 
 
 

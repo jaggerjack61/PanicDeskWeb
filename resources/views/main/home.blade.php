@@ -8,6 +8,8 @@
         and advise patients on their anxiety driven panic attacks.</p>
         <p>Data is gathered from a wearable device and sent via their mobile phone to the portal in real time. This data is
         then analyzed to find any possible patterns or triggers to these panic attacks.</p>
+        <img src="img/doc.jpg" class="img-fluid"
+             alt="Sample image">
     </div>
 
 @endsection

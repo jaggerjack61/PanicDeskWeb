@@ -1,5 +1,5 @@
-<div>
-<div style="overflow-y: scroll; height:400px;">
+<div wire:poll>
+<div style="overflow-y: scroll; height:85%;background-color:black;">
     {{-- A good traveler has no fixed plans and is not intent upon arriving. --}}
     @foreach($messages as $message)
 <div class="row">
